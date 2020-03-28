@@ -1,0 +1,53 @@
+{
+  "name": "tip-calculator",
+  "version": "0.1.0",
+  "author": "Michael Daniel Padilla <michaeldpadilla@gmail.com> (https://mikedpad.com)",
+  "description": "A very basic tip calculator using React and Material UI.",
+  "license": "MIT",
+  "homepage": "https://mikedpad.github.io/tip-calculator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikedpad/tip-calculator.git"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:eslint": "eslint 'src/**/*.{js,jsx}'",
+    "lint:prettier": "prettier --check 'src/**/*.{js,jsx}'",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.9.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-scripts": "3.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "gh-pages": "^2.2.0",
+    "prettier": "^1.19.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
