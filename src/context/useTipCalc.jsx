@@ -1,8 +1,10 @@
 import React, { useContext, useMemo, createContext, useReducer } from 'react';
-import { SET_BILL, SET_TIP } from './actionTypes';
-import reducer, { defaultState } from './tipCalcReducer';
+import ldRound from 'lodash/round';
+import { defaultState, reducer } from './tipCalcReducer';
 
 const NoteContext = createContext();
+
+const roundTo2Dec = value => ldRound(value, 2);
 
 function useTipCalc() {
   const context = useContext(NoteContext);
@@ -12,19 +14,22 @@ function useTipCalc() {
   const [state, dispatch] = context;
   const dispatchAction = (type, payload) => dispatch({ type, payload });
 
-  const { bill, tip } = state;
-  const updateBill = payload => dispatchAction(SET_BILL, payload);
-  const updateTip = payload => dispatchAction(SET_TIP, payload);
-  const getTipAmount = () => bill * (tip * 0.01);
-  const getTotal = () => bill + getTipAmount();
+  const amount = {
+    get bill() {
+      return roundTo2Dec(state.bill);
+    },
+    get tip() {
+      return roundTo2Dec(state.bill * (state.tip * 0.01));
+    },
+    get total() {
+      return roundTo2Dec(this.bill + this.tip);
+    },
+  };
 
   return {
-    bill,
-    tip,
-    updateBill,
-    updateTip,
-    getTipAmount,
-    getTotal,
+    updateBill: payload => dispatchAction(`SET_BILL`, payload),
+    updateTip: payload => dispatchAction(`SET_TIP`, payload),
+    amount,
   };
 }
 

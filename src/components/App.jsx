@@ -3,8 +3,10 @@ import { makeStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { useTipCalc } from '../context/useTipCalc';
 import Bill from './Bill';
 import Tip from './Tip';
+import Total from './Total';
 
 const useStyles = makeStyles({
   root: {
@@ -19,6 +21,7 @@ const useStyles = makeStyles({
 
 const App = () => {
   const classes = useStyles();
+  const { amount } = useTipCalc();
 
   return (
     <>
@@ -28,10 +31,13 @@ const App = () => {
       <Container fixed maxWidth="xs" className={classes.root}>
         <Grid>
           <Grid item>
-            <Bill />
+            <Bill defaultValue={amount.bill} />
           </Grid>
           <Grid item>
-            <Tip />
+            <Tip defaultValue={amount.tip} />
+          </Grid>
+          <Grid item>
+            <Total />
           </Grid>
         </Grid>
       </Container>

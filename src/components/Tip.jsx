@@ -1,10 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import { makeStyles } from '@material-ui/styles';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { makeStyles } from '@material-ui/core';
+import debounce from 'lodash/debounce';
+import Item from './Item';
 import { useTipCalc } from '../context/useTipCalc';
-import { defaultState } from '../context/tipCalcReducer';
 
 const useStyles = makeStyles({
   sliderRoot: {
@@ -12,45 +17,54 @@ const useStyles = makeStyles({
       flex: `1 0`,
     },
     '& .MuiGrid-item:last-child': {
-      width: 60,
+      width: 120,
       marginLeft: `1rem`,
     },
   },
 });
 
-const Tip = () => {
-  const { tip, updateTip, getTipAmount, getTotal } = useTipCalc();
-  const { tip: defaultTip } = defaultState;
-  const tipAmount = getTipAmount();
-  const handleTipChange = (evt, value) => updateTip(parseFloat(value));
+const Tip = ({ defaultValue }) => {
+  const {
+    updateTip,
+    amount: { tip },
+  } = useTipCalc();
+  const handleTipChange = (evt, value) => updateTip(value);
+  const debounceTipChange = debounce(handleTipChange, 150);
   const classes = useStyles();
-  console.log(`  Tip: ${tip}%\nTotal: ${getTotal()}`);
 
   return (
-    <>
-      <Typography id="tip-slider" component="h3" variant="overline">
-        Tip Amount
-      </Typography>
+    <Item label="Tip">
       <Grid container direction="row" spacing={2} className={classes.sliderRoot}>
         <Grid item>
           <Slider
-            step={5}
             min={0}
             max={100}
-            defaultValue={defaultTip}
-            onChange={handleTipChange}
+            track={false}
+            defaultValue={defaultValue}
+            onChange={debounceTipChange}
             aria-labelledby="tip-slider"
             valueLabelDisplay="auto"
           />
         </Grid>
         <Grid item>
-          <Typography component="p" align="center" variant="body1">
-            {tipAmount}
-          </Typography>
+          <FormControl variant="outlined">
+            <InputLabel htmlFor="tip-amount">Tip Amount</InputLabel>
+            <OutlinedInput
+              id="tip-amount"
+              value={tip}
+              readOnly
+              labelWidth={85}
+              startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            />
+          </FormControl>
         </Grid>
       </Grid>
-    </>
+    </Item>
   );
 };
 
 export default Tip;
+
+Tip.propTypes = {
+  defaultValue: PropTypes.number.isRequired,
+};
