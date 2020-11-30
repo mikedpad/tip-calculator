@@ -1,47 +1,28 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Statistic, Layout } from 'antd';
 import { useTipCalc } from '../context/useTipCalc';
-import Bill from './Bill';
+import Items from './Bill';
 import Tip from './Tip';
-import Total from './Total';
 
-const useStyles = makeStyles({
-  root: {
-    '& .MuiOutlinedInput-root': {
-      margin: `0 0 1.5rem`,
-    },
-    '& .MuiOutlinedInput-input': {
-      padding: `0.5rem 0.75rem`,
-    },
-  },
-});
+const { Title } = Typography;
+const { Header, Content } = Layout;
 
 const App = () => {
-  const classes = useStyles();
-  const { amount } = useTipCalc();
+  const { items, calcWithTip } = useTipCalc();
+  const itemSubTotal = items.reduce((acc, { value }) => acc + value, 0);
+  const total = calcWithTip(itemSubTotal);
 
   return (
-    <>
-      <Typography variant="h1" align="center" gutterBottom>
-        Tip Calculator
-      </Typography>
-      <Container fixed maxWidth="xs" className={classes.root}>
-        <Grid>
-          <Grid item>
-            <Bill defaultValue={amount.bill} />
-          </Grid>
-          <Grid item>
-            <Tip defaultValue={amount.tip} />
-          </Grid>
-          <Grid item>
-            <Total />
-          </Grid>
-        </Grid>
-      </Container>
-    </>
+    <Layout>
+      <Header>
+        <Title style={{ margin: `0 0.25rem 0 0.5rem`, textAlign: `center` }}>Tip Calculator</Title>
+      </Header>
+      <Content style={{ padding: `0 16px` }}>
+        <Items />
+        <Tip />
+
+        <Statistic title="Total" prefix="$" value={total} precision={2} />
+      </Content>
+    </Layout>
   );
 };
 
