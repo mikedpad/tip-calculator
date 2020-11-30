@@ -1,8 +1,8 @@
 {
   "name": "tip-calculator",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "author": "Michael Daniel Padilla <michaeldpadilla@gmail.com> (https://mikedpad.com)",
-  "description": "A very basic tip calculator using React and Material UI.",
+  "description": "A very basic tip calculator using React and Ant Design components.",
   "license": "MIT",
   "homepage": "https://mikedpad.github.io/tip-calculator",
   "repository": {
@@ -20,15 +20,16 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/styles": "^4.10.0",
+    "@ant-design/icons": "^4.3.0",
+    "antd": "^4.8.6",
     "lodash": "^4.17.20",
+    "nanoid": "^3.1.18",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "^4.0.1"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.14.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.15.0",
@@ -37,7 +38,8 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.1.0",
-    "prettier": "^2.2.0"
+    "prettier": "^2.2.1",
+    "sass": "^1.29.0"
   },
   "browserslist": {
     "production": [
