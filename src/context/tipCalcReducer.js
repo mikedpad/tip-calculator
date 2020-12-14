@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 
 const createItem = v => ({
-  id: nanoid(),
+  key: nanoid(),
   value: parseFloat(v),
 });
 
@@ -22,9 +22,9 @@ export const reducer = (state = defaultState, action) => {
       return {
         ...state,
         items: state.items.map(item => {
-          const { id } = item;
-          if (id === payload.id) {
-            return { id, value: parseFloat(payload.value) };
+          const { key } = item;
+          if (key === payload.key) {
+            return { key, value: parseFloat(payload.value) };
           }
           return item;
         }),
@@ -32,7 +32,7 @@ export const reducer = (state = defaultState, action) => {
     case `DELETE_ITEM`:
       return {
         ...state,
-        items: state.items.filter(({ id }) => id !== payload),
+        items: state.items.filter(({ key }) => key !== payload),
       };
     case `SET_TIP_PERCENTAGE`:
       return {

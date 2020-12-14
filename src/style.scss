@@ -4,55 +4,23 @@
   text-rendering: geometricPrecision;
 }
 
-/* AntD - Header Type */
-.ant-layout-header .ant-typography {
-  color: rgba(255, 255, 255, 0.85);
+.ui-wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+  // padding: 0 16px;
 }
 
 .items {
-  .ant-row {
-    .ant-col:first-child {
-      padding: 0;
-    }
+  .ant-table-thead th {
+    padding: 4px 8px;
   }
 
-  .ant-statistic {
-    line-height: 1;
-
-    .ant-statistic-title {
-      font-size: 12px;
-      margin-bottom: 0;
-    }
-
-    .ant-statistic-content-prefix,
-    .ant-statistic-content-suffix {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 16px;
-    }
-
-    .ant-statistic-content-prefix {
-      margin-right: 0;
-    }
-    .ant-statistic-content-suffix {
-      margin-left: 4px;
-    }
-
-    .ant-statistic-content-value,
-    .ant-statistic-content-value-int,
-    .ant-statistic-content-value-decimal {
-      font-size: 16px;
-    }
+  .ant-table-tbody td {
+    padding: 8px;
   }
 
-  .ant-input-number {
-    width: auto;
-  }
-
-  .ant-collapse-content {
-    background-color: crimson;
-  }
-
-  .ant-collapse-content-box {
-    padding: 0;
+  .ant-table-thead th,
+  .ant-table-tbody td {
+    text-align: center;
   }
 }
