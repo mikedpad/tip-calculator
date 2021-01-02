@@ -3,6 +3,8 @@ $pageTextColor: #efefef;
 $pageTextColor2: #999;
 $sectionBgColor: transparentize(#fff, 0.9);
 $dividerColor: transparentize(#fff, 0.75);
+$sliderHandleSize: 20px;
+$sliderHandleBorder: 2px;
 
 :root {
   margin: 0;
@@ -16,42 +18,11 @@ body {
 }
 
 ////////////////////////////////////////
-// Tabs
-////////////////////////////////////////
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
-.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
-  font-weight: 500;
-  color: gray;
-  //   margin: 0;
-  //   padding: 8px 16px;
-  // background: mix($pageBgColor, 0.25);
-  background: darken($pageBgColor, 4);
-  //   border: 1px solid #303030;
-  //   -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  //   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active,
-.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
-  background: $sectionBgColor;
-}
-
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: $pageTextColor;
-}
-
-////////////////////////////////////////
 // Divider Title
 ////////////////////////////////////////
 .ant-divider-horizontal.ant-divider-with-text {
-  // margin: 16px 0;
   color: $pageTextColor;
-  // font-weight: 500;
   font-size: 20px;
-  // white-space: nowrap;
-  // text-align: center;
-  // border-top: 0;
-  // border-top-color: rgba(255, 255, 255, 0.12);
   border-top-color: $dividerColor;
 }
 
@@ -73,14 +44,31 @@ body {
 // Slider
 ////////////////////////////////////////
 .ant-slider-mark-text {
-  // position: absolute;
-  // display: inline-block;
   color: $pageTextColor2;
-  // text-align: center;
-  // word-break: keep-all;
-  // cursor: pointer;
-  // -webkit-user-select: none;
-  // -moz-user-select: none;
-  // -ms-user-select: none;
-  user-select: none;
+}
+.ant-slider:hover .ant-slider-rail {
+  background-color: $dividerColor;
+}
+
+.ant-slider-rail {
+  background-color: $dividerColor;
+}
+.ant-slider-dot {
+  background-color: black;
+  border: 2px solid $pageTextColor2;
+}
+.ant-slider-handle {
+  background-color: $pageTextColor;
+  border: solid $sliderHandleBorder $pageTextColor2;
+  height: $sliderHandleSize;
+  width: $sliderHandleSize;
+  margin-top: ($sliderHandleSize / 2 - $sliderHandleBorder) * -1;
+
+  &:focus {
+    border-color: $pageTextColor2;
+  }
+
+  &.ant-tooltip-open {
+    border-color: $pageTextColor2;
+  }
 }

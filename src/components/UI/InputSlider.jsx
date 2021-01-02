@@ -14,7 +14,7 @@ const sliderMarks = {
 const InputSlider = ({ onChange }) => {
   const { tipPercent } = useTipCalc();
   return (
-    <div style={{ overflowY: `auto` }}>
+    <div style={{ overflow: `auto` }}>
       <Slider
         min={0}
         max={100}
@@ -24,7 +24,7 @@ const InputSlider = ({ onChange }) => {
         tipFormatter={formatTooltip}
         onChange={onChange}
         defaultValue={tipPercent}
-        style={{ margin: `16px 32px 32px` }}
+        style={{ margin: `16px 32px 24px` }}
       />
     </div>
   );
