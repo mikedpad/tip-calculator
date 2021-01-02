@@ -1,34 +1,43 @@
 import { useContext, useMemo, createContext, useReducer } from 'react';
 import { defaultState, reducer } from './tipCalcReducer';
 
-const NoteContext = createContext();
+const TipContext = createContext();
 
 function useTipCalc() {
-  const context = useContext(NoteContext);
+  const context = useContext(TipContext);
   if (!context) {
     throw new Error(`useTipCalc must be used within a TipCalcProvider`);
   }
   const [state, dispatch] = context;
-  function dispatchAction(type, payload) {
-    dispatch({ type, payload });
+  function calcSubtotal() {
+    return state.items.reduce((acc, { value }) => acc + value, 0);
   }
-
-  function calculateTip(value) {
-    const tipDecimal = state.tipPercent * 0.01;
-    return tipDecimal * value;
+  function calcTip(value) {
+    return state.tipPercent * 0.01 * value;
+  }
+  function calcTotal() {
+    const subtotal = calcSubtotal();
+    return calcTip(subtotal) + subtotal;
   }
 
   return {
-    createItem: () => dispatchAction(`CREATE_ITEM`),
-    updateItem: p => dispatchAction(`UPDATE_ITEM`, p),
-    deleteItem: p => dispatchAction(`DELETE_ITEM`, p),
-    updateTip: p => dispatchAction(`SET_TIP_PERCENTAGE`, p),
+    createItem: () => dispatch({ type: `CREATE_ITEM` }),
+    updateItem: payload => dispatch({ type: `UPDATE_ITEM`, payload }),
+    deleteItem: payload => dispatch({ type: `DELETE_ITEM`, payload }),
+    setTipPercentage: payload => dispatch({ type: `SET_TIP_PERCENTAGE`, payload }),
+
     items: state.items,
     tipPercent: state.tipPercent,
-    calcTip: v => calculateTip(v),
-    calcTotal: v => calculateTip(v) + v,
+    calcTip,
+    // calcTotal: v => calculateTip(v) + v,
     get subtotal() {
-      return state.items.reduce((acc, { value }) => acc + value, 0);
+      return calcSubtotal();
+    },
+    get tipTotal() {
+      return calcTip(calcSubtotal());
+    },
+    get total() {
+      return calcTotal();
     },
   };
 }
@@ -36,7 +45,7 @@ function useTipCalc() {
 function TipCalcProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, defaultState);
   const value = useMemo(() => [state, dispatch], [state]);
-  return <NoteContext.Provider value={value}>{children}</NoteContext.Provider>;
+  return <TipContext.Provider value={value}>{children}</TipContext.Provider>;
 }
 
 const TipCalcDefaultState = defaultState;

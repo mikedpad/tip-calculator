@@ -1,13 +1,8 @@
 import { nanoid } from 'nanoid';
 
-const createItem = v => ({
-  key: nanoid(),
-  value: parseFloat(v),
-});
-
 export const defaultState = {
-  items: [createItem(25), createItem(10)],
-  tipPercent: 10,
+  items: [],
+  tipPercent: 15,
 };
 
 export const reducer = (state = defaultState, action) => {
@@ -16,17 +11,14 @@ export const reducer = (state = defaultState, action) => {
     case `CREATE_ITEM`:
       return {
         ...state,
-        items: [...state.items, createItem(0)],
+        items: [...state.items, { key: nanoid(), value: 0 }],
       };
     case `UPDATE_ITEM`:
       return {
         ...state,
         items: state.items.map(item => {
-          const { key } = item;
-          if (key === payload.key) {
-            return { key, value: parseFloat(payload.value) };
-          }
-          return item;
+          const { key, value } = payload;
+          return item.key === key ? { key, value } : item;
         }),
       };
     case `DELETE_ITEM`:

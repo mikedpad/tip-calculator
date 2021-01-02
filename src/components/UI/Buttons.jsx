@@ -9,7 +9,7 @@ const AddItem = ({ onClick }) => {
       shape="round"
       icon={<PlusOutlined />}
       onClick={onClick}
-      style={{ margin: `16px` }}
+      style={{ display: `block`, margin: `16px auto` }}
     >
       Add Item
     </Button>

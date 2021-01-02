@@ -1,26 +1,86 @@
+$pageBgColor: #201f25;
+$pageTextColor: #efefef;
+$pageTextColor2: #999;
+$sectionBgColor: transparentize(#fff, 0.9);
+$dividerColor: transparentize(#fff, 0.75);
+
 :root {
   margin: 0;
   padding: 0;
   text-rendering: geometricPrecision;
 }
 
-.ui-wrapper {
-  max-width: 400px;
-  margin: 0 auto;
-  // padding: 0 16px;
+body {
+  background-color: $pageBgColor;
+  color: $pageTextColor;
 }
 
-.items {
-  .ant-table-thead th {
-    padding: 4px 8px;
-  }
+////////////////////////////////////////
+// Tabs
+////////////////////////////////////////
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+  font-weight: 500;
+  color: gray;
+  //   margin: 0;
+  //   padding: 8px 16px;
+  // background: mix($pageBgColor, 0.25);
+  background: darken($pageBgColor, 4);
+  //   border: 1px solid #303030;
+  //   -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  //   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
 
-  .ant-table-tbody td {
-    padding: 8px;
-  }
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active,
+.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+  background: $sectionBgColor;
+}
 
-  .ant-table-thead th,
-  .ant-table-tbody td {
-    text-align: center;
-  }
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: $pageTextColor;
+}
+
+////////////////////////////////////////
+// Divider Title
+////////////////////////////////////////
+.ant-divider-horizontal.ant-divider-with-text {
+  // margin: 16px 0;
+  color: $pageTextColor;
+  // font-weight: 500;
+  font-size: 20px;
+  // white-space: nowrap;
+  // text-align: center;
+  // border-top: 0;
+  // border-top-color: rgba(255, 255, 255, 0.12);
+  border-top-color: $dividerColor;
+}
+
+.ant-divider-inner-text {
+  padding: 0 0.75em;
+}
+
+////////////////////////////////////////
+// Table
+////////////////////////////////////////
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td,
+.ant-table tfoot > tr > th,
+.ant-table tfoot > tr > td {
+  padding: 8px;
+}
+
+////////////////////////////////////////
+// Slider
+////////////////////////////////////////
+.ant-slider-mark-text {
+  // position: absolute;
+  // display: inline-block;
+  color: $pageTextColor2;
+  // text-align: center;
+  // word-break: keep-all;
+  // cursor: pointer;
+  // -webkit-user-select: none;
+  // -moz-user-select: none;
+  // -ms-user-select: none;
+  user-select: none;
 }
