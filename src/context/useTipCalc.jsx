@@ -25,11 +25,12 @@ function useTipCalc() {
     updateItem: payload => dispatch({ type: `UPDATE_ITEM`, payload }),
     deleteItem: payload => dispatch({ type: `DELETE_ITEM`, payload }),
     setTipPercentage: payload => dispatch({ type: `SET_TIP_PERCENTAGE`, payload }),
-
+    toggleEditMode: payload => dispatch({ type: `TOGGLE_EDIT_MODE`, payload }),
+    toggleItemTip: () => dispatch({ type: `TOGGLE_ITEM_TIP` }),
+    toggleItemTotal: () => dispatch({ type: `TOGGLE_ITEM_TOTAL` }),
     items: state.items,
     tipPercent: state.tipPercent,
     calcTip,
-    // calcTotal: v => calculateTip(v) + v,
     get subtotal() {
       return calcSubtotal();
     },
@@ -38,6 +39,15 @@ function useTipCalc() {
     },
     get total() {
       return calcTotal();
+    },
+    get isEditEnabled() {
+      return state.editMode;
+    },
+    get isItemTipEnabled() {
+      return state.showItemTip;
+    },
+    get isItemTotalEnabled() {
+      return state.showItemTotal;
     },
   };
 }

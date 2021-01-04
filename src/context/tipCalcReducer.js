@@ -3,6 +3,9 @@ import { nanoid } from 'nanoid';
 export const defaultState = {
   items: [],
   tipPercent: 15,
+  editMode: false,
+  showItemTip: true,
+  showItemTotal: true,
 };
 
 export const reducer = (state = defaultState, action) => {
@@ -30,6 +33,21 @@ export const reducer = (state = defaultState, action) => {
       return {
         ...state,
         tipPercent: parseFloat(payload),
+      };
+    case `TOGGLE_EDIT_MODE`:
+      return {
+        ...state,
+        editMode: typeof payload === `boolean` ? payload : !state.editMode,
+      };
+    case `TOGGLE_ITEM_TIP`:
+      return {
+        ...state,
+        showItemTip: !state.showItemTip,
+      };
+    case `TOGGLE_ITEM_TOTAL`:
+      return {
+        ...state,
+        showItemTotal: !state.showItemTotal,
       };
     default:
       return state;

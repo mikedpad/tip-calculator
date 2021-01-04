@@ -2,7 +2,7 @@ $pageBgColor: #201f25;
 $pageTextColor: #efefef;
 $pageTextColor2: #999;
 $sectionBgColor: transparentize(#fff, 0.9);
-$dividerColor: transparentize(#fff, 0.75);
+$dividerColor: transparentize(#fff, 0.8);
 $sliderHandleSize: 20px;
 $sliderHandleBorder: 2px;
 
@@ -15,6 +15,13 @@ $sliderHandleBorder: 2px;
 body {
   background-color: $pageBgColor;
   color: $pageTextColor;
+}
+
+////////////////////////////////////////
+// Icons
+////////////////////////////////////////
+.ant-btn > .anticon {
+  line-height: 0;
 }
 
 ////////////////////////////////////////
