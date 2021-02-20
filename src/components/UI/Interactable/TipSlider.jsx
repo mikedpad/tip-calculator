@@ -1,15 +1,18 @@
 import { Slider } from 'antd';
 import debounce from 'lodash/debounce';
-import { useTipCalc } from '../../context/useTipCalc';
+import { useTipCalc } from '../../../context/useTipCalc';
 
 function formatTip(value) {
   return `${value}%`;
 }
 
 const TipSlider = () => {
-  const { tipRate, setTipRate, tipRange } = useTipCalc();
+  const {
+    tipRate,
+    setTipRate,
+    tipRange: [minTip, maxTip],
+  } = useTipCalc();
   const onTipChange = debounce(v => setTipRate(v), 50);
-  const [minTip, maxTip] = tipRange;
 
   return (
     <div style={{ overflow: `auto` }}>
@@ -25,7 +28,7 @@ const TipSlider = () => {
         tipFormatter={formatTip}
         onAfterChange={onTipChange}
         defaultValue={tipRate}
-        style={{ margin: `8px 32px 24px` }}
+        style={{ margin: `8px 32px 32px` }}
       />
     </div>
   );

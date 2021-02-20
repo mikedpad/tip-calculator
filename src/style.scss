@@ -31,3 +31,45 @@ $sliderHandleBorder: 2px;
   width: $sliderHandleSize;
   margin-top: ($sliderHandleSize / 2 - $sliderHandleBorder) * -1;
 }
+
+////////////////////////////////////////
+// Footer
+////////////////////////////////////////
+
+.totals {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.totals-value,
+.totals-split {
+  flex: 1 0 50%;
+  text-align: center;
+}
+.amount {
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.amount-label {
+  .label {
+    color: #999;
+  }
+}
+
+.amount-value {
+  position: relative;
+  display: inline-block;
+  .prefix {
+    position: absolute;
+    color: #666;
+    left: -0.75em;
+  }
+  .value {
+    font-size: 24px;
+    color: #333;
+    line-height: 1.1;
+  }
+}

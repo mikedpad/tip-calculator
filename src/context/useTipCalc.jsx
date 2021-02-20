@@ -9,39 +9,34 @@ function useTipCalc() {
     throw new Error(`useTipCalc must be used within a TipCalcProvider`);
   }
   const [state, dispatch] = context;
-  const { items, tipRate, tipRange } = state;
-  // const subtotal = items.reduce((acc, { value }) => acc + value, 0);
-  // const calcTotal = () => calcTip(subtotal) + subtotal;
 
   return {
     createItem: () => dispatch({ type: `CREATE_ITEM` }),
     updateItem: payload => dispatch({ type: `UPDATE_ITEM`, payload }),
     deleteItem: payload => dispatch({ type: `DELETE_ITEM`, payload }),
     setTipRate: payload => dispatch({ type: `SET_TIP_RATE`, payload }),
-    setTipRange: payload => dispatch({ type: `SET_TIP_RANGE`, payload }),
+    setSplit: payload => dispatch({ type: `SET_SPLIT`, payload }),
     toggleDetails: () => dispatch({ type: `TOGGLE_DETAILS` }),
-    toggleEvenSplit: () => dispatch({ type: `TOGGLE_EVEN_SPLIT` }),
-    setSplitCount: () => dispatch({ type: `SET_SPLIT_COUNT` }),
     get items() {
-      return items;
+      return state.items;
     },
     get tipRate() {
-      return tipRate;
+      return state.tipRate;
     },
     get tipRange() {
-      return tipRange;
+      return state.tipRange;
     },
     get total() {
-      return items.reduce((acc, { cost, tip }) => acc + cost + tip, 0);
+      return state.items.reduce((acc, { cost, tip }) => acc + cost + tip, 0);
     },
     get showDetails() {
       return state.showDetails;
     },
-    get evenSplit() {
-      return state.evenSplit;
+    get split() {
+      return state.split;
     },
-    get splitCount() {
-      return state.splitCount;
+    get splitRange() {
+      return state.splitRange;
     },
   };
 }
