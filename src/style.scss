@@ -33,6 +33,25 @@ $sliderHandleBorder: 2px;
 }
 
 ////////////////////////////////////////
+// Header
+////////////////////////////////////////
+.app-header {
+  background-color: #e6e6ef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  min-height: 50px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 3;
+}
+
+.app-title {
+  font-size: 32px;
+  padding: 8px 16px 8px;
+}
+
+////////////////////////////////////////
 // Footer
 ////////////////////////////////////////
 .app-footer {
