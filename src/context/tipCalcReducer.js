@@ -2,10 +2,11 @@ import { nanoid } from 'nanoid';
 
 export const defaultState = {
   items: [],
-  tipPercent: 15,
-  editMode: false,
-  showItemTip: true,
-  showItemTotal: true,
+  tipRate: 15,
+  tipRange: [5, 30],
+  showDetails: true,
+  evenSplit: false,
+  splitCount: 2,
 };
 
 export const reducer = (state = defaultState, action) => {
@@ -14,40 +15,74 @@ export const reducer = (state = defaultState, action) => {
     case `CREATE_ITEM`:
       return {
         ...state,
-        items: [...state.items, { key: nanoid(), value: 0 }],
+        items: [
+          ...state.items,
+          {
+            id: nanoid(),
+            cost: 0,
+            tip: 0,
+            subtotal: 0,
+          },
+        ],
       };
-    case `UPDATE_ITEM`:
+    case `UPDATE_ITEM`: {
       return {
         ...state,
         items: state.items.map(item => {
-          const { key, value } = payload;
-          return item.key === key ? { key, value } : item;
+          const { id, cost } = payload;
+          const tip = state.tipRate * 0.01 * cost;
+          return item.id === id
+            ? {
+                id,
+                cost,
+                tip,
+                subtotal: cost + tip,
+              }
+            : item;
         }),
       };
+    }
     case `DELETE_ITEM`:
       return {
         ...state,
-        items: state.items.filter(({ key }) => key !== payload),
+        items: state.items.filter(({ id }) => id !== payload),
       };
-    case `SET_TIP_PERCENTAGE`:
+    case `SET_TIP_RATE`: {
+      const tipRate = parseInt(payload, 10);
       return {
         ...state,
-        tipPercent: parseFloat(payload),
+        tipRate,
+        items: state.items.map(item => {
+          const tip = tipRate * 0.01 * item.cost;
+          return {
+            ...item,
+            tip,
+            subtotal: item.cost + tip,
+          };
+        }),
       };
-    case `TOGGLE_EDIT_MODE`:
+    }
+    case `SET_TIP_RANGE`: {
+      const [min, max] = payload;
       return {
         ...state,
-        editMode: typeof payload === `boolean` ? payload : !state.editMode,
+        tipRange: [parseInt(min, 10), parseInt(max, 10)],
       };
-    case `TOGGLE_ITEM_TIP`:
+    }
+    case `TOGGLE_DETAILS`:
       return {
         ...state,
-        showItemTip: !state.showItemTip,
+        showDetails: !state.showDetails,
       };
-    case `TOGGLE_ITEM_TOTAL`:
+    case `TOGGLE_EVEN_SPLIT`:
       return {
         ...state,
-        showItemTotal: !state.showItemTotal,
+        evenSplit: !state.evenSplit,
+      };
+    case `SET_SPLIT_COUNT`:
+      return {
+        ...state,
+        splitCount: parseInt(payload, 10),
       };
     default:
       return state;

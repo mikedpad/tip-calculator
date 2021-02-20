@@ -9,45 +9,39 @@ function useTipCalc() {
     throw new Error(`useTipCalc must be used within a TipCalcProvider`);
   }
   const [state, dispatch] = context;
-  function calcSubtotal() {
-    return state.items.reduce((acc, { value }) => acc + value, 0);
-  }
-  function calcTip(value) {
-    return state.tipPercent * 0.01 * value;
-  }
-  function calcTotal() {
-    const subtotal = calcSubtotal();
-    return calcTip(subtotal) + subtotal;
-  }
+  const { items, tipRate, tipRange } = state;
+  // const subtotal = items.reduce((acc, { value }) => acc + value, 0);
+  // const calcTotal = () => calcTip(subtotal) + subtotal;
 
   return {
     createItem: () => dispatch({ type: `CREATE_ITEM` }),
     updateItem: payload => dispatch({ type: `UPDATE_ITEM`, payload }),
     deleteItem: payload => dispatch({ type: `DELETE_ITEM`, payload }),
-    setTipPercentage: payload => dispatch({ type: `SET_TIP_PERCENTAGE`, payload }),
-    toggleEditMode: payload => dispatch({ type: `TOGGLE_EDIT_MODE`, payload }),
-    toggleItemTip: () => dispatch({ type: `TOGGLE_ITEM_TIP` }),
-    toggleItemTotal: () => dispatch({ type: `TOGGLE_ITEM_TOTAL` }),
-    items: state.items,
-    tipPercent: state.tipPercent,
-    calcTip,
-    get subtotal() {
-      return calcSubtotal();
+    setTipRate: payload => dispatch({ type: `SET_TIP_RATE`, payload }),
+    setTipRange: payload => dispatch({ type: `SET_TIP_RANGE`, payload }),
+    toggleDetails: () => dispatch({ type: `TOGGLE_DETAILS` }),
+    toggleEvenSplit: () => dispatch({ type: `TOGGLE_EVEN_SPLIT` }),
+    setSplitCount: () => dispatch({ type: `SET_SPLIT_COUNT` }),
+    get items() {
+      return items;
     },
-    get tipTotal() {
-      return calcTip(calcSubtotal());
+    get tipRate() {
+      return tipRate;
+    },
+    get tipRange() {
+      return tipRange;
     },
     get total() {
-      return calcTotal();
+      return items.reduce((acc, { cost, tip }) => acc + cost + tip, 0);
     },
-    get isEditEnabled() {
-      return state.editMode;
+    get showDetails() {
+      return state.showDetails;
     },
-    get isItemTipEnabled() {
-      return state.showItemTip;
+    get evenSplit() {
+      return state.evenSplit;
     },
-    get isItemTotalEnabled() {
-      return state.showItemTotal;
+    get splitCount() {
+      return state.splitCount;
     },
   };
 }

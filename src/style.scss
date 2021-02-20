@@ -1,20 +1,9 @@
-$pageBgColor: #201f25;
-$pageTextColor: #efefef;
-$pageTextColor2: #999;
-$sectionBgColor: transparentize(#fff, 0.9);
-$dividerColor: transparentize(#fff, 0.8);
 $sliderHandleSize: 20px;
 $sliderHandleBorder: 2px;
 
 :root {
   margin: 0;
   padding: 0;
-  text-rendering: geometricPrecision;
-}
-
-body {
-  background-color: $pageBgColor;
-  color: $pageTextColor;
 }
 
 ////////////////////////////////////////
@@ -22,19 +11,6 @@ body {
 ////////////////////////////////////////
 .ant-btn > .anticon {
   line-height: 0;
-}
-
-////////////////////////////////////////
-// Divider Title
-////////////////////////////////////////
-.ant-divider-horizontal.ant-divider-with-text {
-  color: $pageTextColor;
-  font-size: 20px;
-  border-top-color: $dividerColor;
-}
-
-.ant-divider-inner-text {
-  padding: 0 0.75em;
 }
 
 ////////////////////////////////////////
@@ -50,32 +26,8 @@ body {
 ////////////////////////////////////////
 // Slider
 ////////////////////////////////////////
-.ant-slider-mark-text {
-  color: $pageTextColor2;
-}
-.ant-slider:hover .ant-slider-rail {
-  background-color: $dividerColor;
-}
-
-.ant-slider-rail {
-  background-color: $dividerColor;
-}
-.ant-slider-dot {
-  background-color: black;
-  border: 2px solid $pageTextColor2;
-}
 .ant-slider-handle {
-  background-color: $pageTextColor;
-  border: solid $sliderHandleBorder $pageTextColor2;
   height: $sliderHandleSize;
   width: $sliderHandleSize;
   margin-top: ($sliderHandleSize / 2 - $sliderHandleBorder) * -1;
-
-  &:focus {
-    border-color: $pageTextColor2;
-  }
-
-  &.ant-tooltip-open {
-    border-color: $pageTextColor2;
-  }
 }

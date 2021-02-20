@@ -1,18 +1,12 @@
-import { Divider, Typography, Table, Empty, Modal, Statistic, Button, Switch } from 'antd';
-import debounce from 'lodash/debounce';
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ExclamationCircleOutlined,
-  PlusOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
-import InputValue from './UI/InputValue';
-import InputSlider from './UI/InputSlider';
+import { Col, Row, Table, Empty } from 'antd';
+import Title from 'antd/lib/typography/Title';
+import TipSlider from './UI/TipSlider';
+import AppSettingsButton from './UI/Buttons/AppSettingsButton';
+import Amount from './UI/Amount';
 import { useTipCalc } from '../context/useTipCalc';
-
-const { Title } = Typography;
-const { Column } = Table;
+import InputCost from './UI/Fields/InputCost';
+import DeleteItemButton from './UI/Buttons/DeleteItemButton';
+import AddItemButton from './UI/Buttons/AddItemButton';
 
 const currency = new Intl.NumberFormat(`en-US`, {
   style: `currency`,
@@ -20,149 +14,108 @@ const currency = new Intl.NumberFormat(`en-US`, {
   minimumFractionDigits: 2,
 });
 
+const TableFooter = () => <AddItemButton />;
+
 const App = () => {
-  const {
-    items,
-    setTipPercentage,
-    createItem,
-    updateItem,
-    deleteItem,
-    toggleEditMode,
-    toggleItemTip,
-    toggleItemTotal,
-    calcTip,
-    tipTotal,
-    total,
-    isEditEnabled,
-    isItemTipEnabled,
-    isItemTotalEnabled,
-  } = useTipCalc();
-  const onTipChange = debounce(v => setTipPercentage(v), 50);
-  const onClickAddItem = () => createItem();
+  const { items, evenSplit } = useTipCalc();
   const hasItems = items.length > 0;
+  const total = items.reduce((acc, { cost, tip }) => acc + cost + tip, 0);
 
-  const tableDataItemized = items.map(item => {
-    const { key, value } = item;
-    const itemTip = calcTip(value);
-    const itemTotal = value + itemTip;
-    const onChangeItem = debounce(v => updateItem({ key, value: v }, 100));
-    function onClickDelete() {
-      Modal.confirm({
-        title: `Delete item?`,
-        icon: <ExclamationCircleOutlined />,
-        okText: `Delete`,
-        okType: `danger`,
-        cancelText: `Cancel`,
-        maskClosable: true,
-        onOk() {
-          if (items.length === 1) {
-            toggleEditMode(false);
-          }
-          deleteItem(key);
-        },
-      });
-    }
-
-    return {
-      key,
-      value: <InputValue value={value} onChange={onChangeItem} />,
-      itemTip: currency.format(itemTip),
-      itemTotal: currency.format(itemTotal),
-      delete: (
-        <Button
-          shape="circle"
-          danger
-          icon={<DeleteOutlined />}
-          type="primary"
-          onClick={onClickDelete}
-        />
-      ),
-    };
-  });
+  const columns = [
+    {
+      title: `Cost`,
+      dataIndex: `cost`,
+      render: (v, { id }) => <InputCost id={id} value={v} />,
+    },
+    {
+      title: `Tip`,
+      dataIndex: `tip`,
+      render: v => currency.format(v),
+    },
+    {
+      title: `Subtotal`,
+      dataIndex: `subtotal`,
+      render: v => currency.format(v),
+    },
+    {
+      title: ``,
+      dataIndex: `id`,
+      key: `delete`,
+      width: 50,
+      render: (v, { cost }) => <DeleteItemButton id={v} text={currency.format(cost)} />,
+    },
+  ];
 
   return (
-    <div style={{ textAlign: `center` }}>
-      <Title>Tip Mate</Title>
-      <section
+    <>
+      <header
         style={{
-          maxWidth: 400,
-          margin: `16px auto`,
+          backgroundColor: `#e6e6ef`,
+          boxShadow: `0 2px 8px rgba(0, 0, 0, 0.2)`,
+          minHeight: 60,
+          margin: `0 0 16px`,
+          padding: `0 16px`,
+          position: `fixed`,
+          left: 0,
+          right: 0,
+          top: 0,
+          zIndex: 3,
         }}
       >
-        {hasItems ? (
-          <>
-            <Table dataSource={tableDataItemized} pagination={false}>
-              <Column title="Item Value" dataIndex="value" key="value" />
-              {isItemTipEnabled && (
-                <Column title="Tip" dataIndex="itemTip" key="itemTip" width={50} />
-              )}
-              {isItemTotalEnabled && (
-                <Column title="Total" dataIndex="itemTotal" key="itemTotal" width={50} />
-              )}
-              {isEditEnabled && <Column title="" dataIndex="delete" key="delete" width={50} />}
-            </Table>
-            {isEditEnabled && (
-              <Button
-                type="primary"
-                shape="round"
-                icon={<PlusOutlined />}
-                onClick={onClickAddItem}
-                style={{ display: `block`, margin: `16px auto` }}
-              >
-                Add Another Item
-              </Button>
+        <Row align="middle" wrap={false}>
+          <Col flex="auto">
+            <Title style={{ margin: 0, fontSize: 32 }}>Tip Calculator</Title>
+          </Col>
+          <Col flex="0 1">
+            <AppSettingsButton />
+          </Col>
+        </Row>
+      </header>
+      <main style={{ padding: `60px 0 120px` }}>
+        <Row align="middle" justify="center">
+          <Col flex="auto">
+            {hasItems ? (
+              <Table
+                columns={columns}
+                dataSource={items}
+                rowKey={({ id }) => id}
+                pagination={false}
+                footer={TableFooter}
+              />
+            ) : (
+              <>
+                <Empty description="No Items" style={{ padding: `40px 0 20px` }} />
+                <AddItemButton />
+              </>
             )}
-          </>
-        ) : (
-          <>
-            <Empty description="No Items" />
-            <Button
-              type="primary"
-              shape="round"
-              icon={<PlusOutlined />}
-              onClick={onClickAddItem}
-              style={{
-                display: `block`,
-                margin: `16px auto`,
-              }}
-            >
-              Add An Item
-            </Button>
-          </>
-        )}
-        {isEditEnabled && (
-          <>
-            <div>
-              Display Item Tip <Switch defaultChecked={isItemTipEnabled} onChange={toggleItemTip} />
-            </div>
-            <div>
-              Display Item Total{` `}
-              <Switch defaultChecked={isItemTotalEnabled} onChange={toggleItemTotal} />
-            </div>
-          </>
-        )}
-        {hasItems && (
-          <Button
-            type="primary"
-            icon={isEditEnabled ? <SettingOutlined spin /> : <EditOutlined />}
-            onClick={toggleEditMode}
-            style={{
-              display: `block`,
-              margin: `16px auto`,
-            }}
-          >
-            {isEditEnabled ? `Done Editing` : `Edit Items`}
-          </Button>
-        )}
-
-        <Divider>Adjust Tip</Divider>
-        <InputSlider onChange={onTipChange} />
-
-        <Divider>Total</Divider>
-        <Statistic value={total} prefix="$" precision={2} />
-        <Statistic title="Tip" value={tipTotal} prefix="$" precision={2} />
-      </section>
-    </div>
+          </Col>
+        </Row>
+      </main>
+      <footer
+        style={{
+          backgroundColor: `#e6e6ef`,
+          bottom: 0,
+          boxShadow: `0 -2px 8px rgba(0, 0, 0, 0.2)`,
+          padding: `8px 16px 16px`,
+          position: `fixed`,
+          left: 0,
+          right: 0,
+          zIndex: 2,
+        }}
+      >
+        <TipSlider />
+        <Row align="middle" justify="center" wrap={false}>
+          <Col flex="auto">
+            <Amount label="Total" value={total} />
+          </Col>
+          {evenSplit && (
+            <Col flex="auto">
+              <Amount label="Split" value={total} />
+            </Col>
+          )}
+        </Row>
+      </footer>
+    </>
   );
 };
 
