@@ -10,6 +10,7 @@ const AddItemButton = () => {
     <Button
       type="primary"
       shape="round"
+      size="large"
       icon={<PlusOutlined />}
       onClick={onClickAddItem}
       style={{
