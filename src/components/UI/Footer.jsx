@@ -25,9 +25,11 @@ const Footer = () => {
               size="small"
               icon={<MinusOutlined />}
               onClick={splitMinusOne}
+              style={{ margin: 8 }}
             />
           </div>
           <Amount
+            // label={splitEnabled ? `Split In ${split}` : `No Split`}
             label={splitEnabled ? `Split (${split})` : `No Split`}
             value={splitEnabled ? total / split : null}
           />
@@ -38,6 +40,7 @@ const Footer = () => {
               size="small"
               icon={<PlusOutlined />}
               onClick={splitPlusOne}
+              style={{ margin: 8 }}
             />
           </div>
         </div>
