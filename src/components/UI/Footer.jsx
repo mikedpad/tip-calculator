@@ -23,6 +23,7 @@ const Footer = () => {
               type="default"
               shape="circle"
               size="small"
+              disabled={split < 2}
               icon={<MinusOutlined />}
               onClick={splitMinusOne}
               style={{ margin: 8 }}
@@ -38,6 +39,7 @@ const Footer = () => {
               type="default"
               shape="circle"
               size="small"
+              disabled={split > 9}
               icon={<PlusOutlined />}
               onClick={splitPlusOne}
               style={{ margin: 8 }}
