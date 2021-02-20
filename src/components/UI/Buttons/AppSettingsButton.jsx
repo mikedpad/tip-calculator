@@ -1,14 +1,11 @@
 import { SettingOutlined } from '@ant-design/icons';
 import { Button, Form, Modal, Switch } from 'antd';
-import debounce from 'lodash/debounce';
 import { useTipCalc } from '../../../context/useTipCalc';
-import IntInput from '../Fields/IntInput';
 
 const { Item } = Form;
 
 const SettingsModalButton = () => {
-  const { showDetails, split, setSplit, toggleDetails } = useTipCalc();
-  const onSplitChange = debounce(v => setSplit(v), 50);
+  const { showDetails, toggleDetails } = useTipCalc();
 
   function showSettingsModal() {
     Modal.info({
@@ -20,9 +17,6 @@ const SettingsModalButton = () => {
         <Form name="settings">
           <Item label="Show Details">
             <Switch defaultChecked={showDetails} onChange={toggleDetails} />
-          </Item>
-          <Item label="Split">
-            <IntInput value={split} onChange={onSplitChange} />
           </Item>
         </Form>
       ),

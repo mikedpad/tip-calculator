@@ -7,7 +7,6 @@ export const defaultState = {
   items: [],
   tipRate: 15,
   split: 1,
-  showDetails: true,
 };
 
 export const reducer = (state = defaultState, action) => {
@@ -59,8 +58,6 @@ export const reducer = (state = defaultState, action) => {
         }),
       });
     }
-    case `TOGGLE_DETAILS`:
-      return newState({ showDetails: !state.showDetails });
     case `SET_SPLIT`: {
       const [min, max] = splitRange;
       return newState({ split: clamp(parseInt(payload, 10), min, max) });

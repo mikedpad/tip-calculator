@@ -16,7 +16,6 @@ function useTipCalc() {
     deleteItem: payload => dispatch({ type: `DELETE_ITEM`, payload }),
     setTipRate: payload => dispatch({ type: `SET_TIP_RATE`, payload }),
     setSplit: payload => dispatch({ type: `SET_SPLIT`, payload }),
-    toggleDetails: () => dispatch({ type: `TOGGLE_DETAILS` }),
     get items() {
       return state.items;
     },
@@ -25,9 +24,6 @@ function useTipCalc() {
     },
     get total() {
       return state.items.reduce((acc, { cost, tip }) => acc + cost + tip, 0);
-    },
-    get showDetails() {
-      return state.showDetails;
     },
     get split() {
       return state.split;
