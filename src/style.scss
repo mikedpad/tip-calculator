@@ -37,18 +37,15 @@ $sliderHandleBorder: 2px;
 ////////////////////////////////////////
 .app-header {
   background-color: #e6e6ef;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   min-height: 50px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 3;
 }
 
 .app-title {
-  font-size: 32px;
-  padding: 8px 16px 8px;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 8px 16px;
+  line-height: 1;
+  margin: 0;
 }
 
 ////////////////////////////////////////
@@ -58,7 +55,7 @@ $sliderHandleBorder: 2px;
   background-color: #e6e6ef;
   bottom: 0;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
-  padding: 8px 16px 16px;
+  padding: 8px 0 16px;
   position: fixed;
   left: 0;
   right: 0;
@@ -71,10 +68,14 @@ $sliderHandleBorder: 2px;
   justify-content: center;
   align-items: center;
 }
-.totals-value,
-.totals-split {
-  flex: 1 1;
+
+.totals-value {
   text-align: center;
+  flex: 1 0;
+}
+
+.totals-split {
+  flex: 1 0;
 }
 
 .totals-split {
@@ -86,7 +87,6 @@ $sliderHandleBorder: 2px;
 
 .amount {
   display: inline-block;
-  margin: 0 auto;
   text-align: center;
 }
 

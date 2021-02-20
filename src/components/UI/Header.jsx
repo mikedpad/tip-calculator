@@ -1,13 +1,8 @@
 import PropTypes from 'prop-types';
-import { Typography } from 'antd';
-
-const { Title } = Typography;
 
 const Header = ({ title }) => (
   <header className="app-header">
-    <Title className="app-title" style={{ margin: 0, fontSize: 32 }}>
-      {title}
-    </Title>
+    <h1 className="app-title">{title}</h1>
   </header>
 );
 
