@@ -23,9 +23,6 @@ function useTipCalc() {
     get tipRate() {
       return state.tipRate;
     },
-    get tipRange() {
-      return state.tipRange;
-    },
     get total() {
       return state.items.reduce((acc, { cost, tip }) => acc + cost + tip, 0);
     },
@@ -34,9 +31,6 @@ function useTipCalc() {
     },
     get split() {
       return state.split;
-    },
-    get splitRange() {
-      return state.splitRange;
     },
   };
 }

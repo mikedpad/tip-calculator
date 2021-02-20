@@ -1,6 +1,5 @@
 import { SettingOutlined } from '@ant-design/icons';
 import { Button, Form, Modal, Switch } from 'antd';
-import clamp from 'lodash/clamp';
 import debounce from 'lodash/debounce';
 import { useTipCalc } from '../../../context/useTipCalc';
 import IntInput from '../Fields/IntInput';
@@ -8,14 +7,8 @@ import IntInput from '../Fields/IntInput';
 const { Item } = Form;
 
 const SettingsModalButton = () => {
-  const {
-    showDetails,
-    split,
-    splitRange: [minSplit, maxSplit],
-    setSplit,
-    toggleDetails,
-  } = useTipCalc();
-  const onSplitChange = debounce(v => setSplit(clamp(v, minSplit, maxSplit)), 50);
+  const { showDetails, split, setSplit, toggleDetails } = useTipCalc();
+  const onSplitChange = debounce(v => setSplit(v), 50);
 
   function showSettingsModal() {
     Modal.info({
@@ -38,7 +31,7 @@ const SettingsModalButton = () => {
 
   return (
     <Button
-      type=""
+      type="default"
       shape="circle"
       size="large"
       icon={<SettingOutlined style={{ display: `block` }} />}

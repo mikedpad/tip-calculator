@@ -7,21 +7,17 @@ function formatTip(value) {
 }
 
 const TipSlider = () => {
-  const {
-    tipRate,
-    setTipRate,
-    tipRange: [minTip, maxTip],
-  } = useTipCalc();
+  const { tipRate, setTipRate } = useTipCalc();
   const onTipChange = debounce(v => setTipRate(v), 50);
 
   return (
     <div style={{ overflow: `auto` }}>
       <Slider
-        min={minTip}
-        max={maxTip}
+        min={0}
+        max={100}
         marks={{
-          [minTip]: minTip,
-          [maxTip]: maxTip,
+          0: 0,
+          100: 100,
         }}
         step={1}
         included={false}

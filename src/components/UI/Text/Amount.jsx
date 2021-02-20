@@ -8,14 +8,8 @@ const Amount = ({ label, value }) => {
         <span className="label">{label.toUpperCase()}</span>
       </div>
       <div className="amount-value">
-        {valueIsNumber ? (
-          <>
-            <span className="prefix">$</span>
-            <span className="value">{value.toFixed(2)}</span>
-          </>
-        ) : (
-          `---`
-        )}
+        {valueIsNumber && <span className="prefix">$</span>}
+        <span className="value">{valueIsNumber ? value.toFixed(2) : `---`}</span>
       </div>
     </div>
   );
@@ -25,5 +19,9 @@ export default Amount;
 
 Amount.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
+};
+
+Amount.defaultProps = {
+  value: null,
 };

@@ -35,6 +35,16 @@ $sliderHandleBorder: 2px;
 ////////////////////////////////////////
 // Footer
 ////////////////////////////////////////
+.app-footer {
+  background-color: #e6e6ef;
+  bottom: 0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+  padding: 8px 16px 16px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
 
 .totals {
   display: flex;
@@ -44,9 +54,17 @@ $sliderHandleBorder: 2px;
 }
 .totals-value,
 .totals-split {
-  flex: 1 0 50%;
+  flex: 1 1;
   text-align: center;
 }
+
+.totals-split {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .amount {
   display: inline-block;
   margin: 0 auto;
@@ -56,6 +74,7 @@ $sliderHandleBorder: 2px;
 .amount-label {
   .label {
     color: #999;
+    font-size: 16px;
   }
 }
 
@@ -63,12 +82,14 @@ $sliderHandleBorder: 2px;
   position: relative;
   display: inline-block;
   .prefix {
+    font-size: 16px;
     position: absolute;
     color: #666;
     left: -0.75em;
+    bottom: 2px;
   }
   .value {
-    font-size: 24px;
+    font-size: 36px;
     color: #333;
     line-height: 1.1;
   }

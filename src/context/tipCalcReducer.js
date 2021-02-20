@@ -1,11 +1,12 @@
 import { nanoid } from 'nanoid';
+import clamp from 'lodash/clamp';
+
+const splitRange = [1, 10];
 
 export const defaultState = {
   items: [],
   tipRate: 15,
-  tipRange: [0, 100],
   split: 1,
-  splitRange: [1, 10],
   showDetails: true,
 };
 
@@ -60,8 +61,10 @@ export const reducer = (state = defaultState, action) => {
     }
     case `TOGGLE_DETAILS`:
       return newState({ showDetails: !state.showDetails });
-    case `SET_SPLIT`:
-      return newState({ split: parseInt(payload, 10) });
+    case `SET_SPLIT`: {
+      const [min, max] = splitRange;
+      return newState({ split: clamp(parseInt(payload, 10), min, max) });
+    }
     default:
       return state;
   }

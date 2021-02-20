@@ -15,7 +15,7 @@ const currency = new Intl.NumberFormat(`en-US`, {
 const TableFooter = () => <AddItemButton />;
 
 const App = () => {
-  const { items, total, split } = useTipCalc();
+  const { items } = useTipCalc();
   const hasItems = items.length > 0;
 
   const columns = [
@@ -66,7 +66,7 @@ const App = () => {
           </Col>
         </Row>
       </main>
-      <Footer total={total} split={split} />
+      <Footer />
     </>
   );
 };
