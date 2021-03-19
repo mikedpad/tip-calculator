@@ -13,12 +13,13 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["react-hooks"],
+  "plugins": ["react-hooks", "better-styled-components"],
   "root": true,
   "settings": {
     "import/core-modules": ["react", "prop-types"]
   },
   "rules": {
+    "better-styled-components/sort-declarations-alphabetically": 2,
     "no-bitwise": [
       2,
       {
