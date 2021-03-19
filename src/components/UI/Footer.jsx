@@ -1,53 +1,81 @@
-import { Button } from 'antd';
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import debounce from 'lodash/debounce';
+import styled from 'styled-components/macro';
 import TipSlider from './Interactable/TipSlider';
-import Amount from './Text/Amount';
 import { useTipCalc } from '../../context/useTipCalc';
+import MinusButton from './Buttons/MinusButton';
+import PlusButton from './Buttons/PlusButton';
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 400px;
+`;
+
+const Results = styled.div`
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+`;
+
+const Amount = styled.div`
+  flex: 1 0;
+  padding: 0 0.5rem;
+  text-align: center;
+`;
+
+const AmountLabel = styled.div`
+  color: #999;
+  font-size: 16px;
+`;
+const AmountValue = styled.div`
+  display: block;
+  padding: 0 0.5rem;
+`;
+const Prefix = styled.span`
+  color: #666;
+  font-size: 16px;
+`;
+const Value = styled.span`
+  color: #333;
+  font-size: 6vw;
+  line-height: 1.1;
+`;
+
+const ValueFlex = styled.div`
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+`;
 
 const Footer = () => {
-  const { total, split, setSplit } = useTipCalc();
+  const { total, split } = useTipCalc();
   const splitEnabled = split > 1;
-  const splitMinusOne = debounce(() => setSplit(split - 1), 50);
-  const splitPlusOne = debounce(() => setSplit(split + 1), 50);
   return (
-    <footer className="app-footer">
+    <Container>
       <TipSlider />
-      <div className="totals">
-        <div className="totals-value">
-          <Amount label="Total" value={total} />
-        </div>
-        <div className="totals-split">
-          <div className="totals-split-remove">
-            <Button
-              type="default"
-              shape="circle"
-              size="small"
-              disabled={split < 2}
-              icon={<MinusOutlined />}
-              onClick={splitMinusOne}
-              style={{ margin: 8 }}
-            />
-          </div>
-          <Amount
-            // label={splitEnabled ? `Split In ${split}` : `No Split`}
-            label={splitEnabled ? `Split (${split})` : `No Split`}
-            value={splitEnabled ? total / split : null}
-          />
-          <div className="totals-split-add">
-            <Button
-              type="default"
-              shape="circle"
-              size="small"
-              disabled={split > 9}
-              icon={<PlusOutlined />}
-              onClick={splitPlusOne}
-              style={{ margin: 8 }}
-            />
-          </div>
-        </div>
-      </div>
-    </footer>
+      <Results>
+        <Amount>
+          <AmountLabel>Total</AmountLabel>
+          <AmountValue>
+            <Prefix>$</Prefix>
+            <Value>{total.toFixed(2)}</Value>
+          </AmountValue>
+        </Amount>
+        <Amount>
+          <AmountLabel>{splitEnabled ? `Split (${split})` : `No Split`}</AmountLabel>
+          <ValueFlex>
+            <MinusButton />
+            {splitEnabled && (
+              <AmountValue>
+                <Prefix>$</Prefix>
+                <Value>{(total / split).toFixed(2)}</Value>
+              </AmountValue>
+            )}
+            <PlusButton />
+          </ValueFlex>
+        </Amount>
+      </Results>
+    </Container>
   );
 };
 

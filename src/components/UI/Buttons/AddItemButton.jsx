@@ -4,8 +4,8 @@ import { useTipCalc } from '../../../context/useTipCalc';
 
 const AddItemButton = () => {
   const { createItem } = useTipCalc();
-
   const onClickAddItem = () => createItem();
+
   return (
     <Button
       type="primary"

@@ -5,12 +5,12 @@ import { useTipCalc } from '../../../context/useTipCalc';
 
 const { Text } = Typography;
 
-const DeleteItemButton = ({ id, text }) => {
+const DeleteItemButton = ({ id, index, text }) => {
   const { deleteItem } = useTipCalc();
 
   function showDeleteModal() {
     Modal.warning({
-      title: `Delete item?`,
+      title: `Delete item #${index}?`,
       icon: <WarningOutlined />,
       okText: `Delete`,
       okType: `danger`,
@@ -37,5 +37,6 @@ export default DeleteItemButton;
 
 DeleteItemButton.propTypes = {
   id: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
 };
