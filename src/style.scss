@@ -22,5 +22,5 @@ body {
 .ant-slider-handle {
   height: $sliderHandleSize;
   width: $sliderHandleSize;
-  margin-top: ($sliderHandleSize / 2 - $sliderHandleBorder) * -1;
+  margin-top: ($sliderHandleSize * 0.5 - $sliderHandleBorder) * -1;
 }
